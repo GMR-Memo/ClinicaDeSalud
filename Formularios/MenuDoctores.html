@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Panel Doctor</title>
+  <link rel="stylesheet" href="css/MenuDoctores.css">
+</head>
+<body>
+  <div class="dashboard">
+    <aside class="sidebar">
+      <div class="brand">Clínica</div>
+      <nav class="nav">
+        <!-- Gestión de Citas -->
+        <div class="nav-section">Citas</div>
+        <a href="CrearCita.html" class="nav-item">Crear Cita</a>
+        <a href="citas.html" class="nav-item">Ver/Editar Citas</a>
+        <!-- Gestión de Pacientes -->
+        <div class="nav-section">Pacientes</div>
+        <a href="AgregarPacientes.html" class="nav-item">Agregar Paciente</a>
+        <a href="Pacientes.html" class="nav-item">Ver/Editar Pacientes</a>
+       
+      </nav>
+    </aside>
+    <main class="content">
+      <h1>Bienvenido, Dr. {{nombre}}</h1>
+      <p>Seleccione una opción en el menú para navegar por las funciones.</p>
+    </main>
+  </div>
+</body>
+</html>

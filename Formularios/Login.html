@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar Sesión - Clínica de Salud</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <!-- Estilos propios -->
+  <link rel="stylesheet" href="css/Login.css">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+      <a class="navbar-brand" href="../index.html">Clínica</a>
+    </div>
+  </nav>
+
+  <div class="login-container">
+    <h2 class="text-center mb-4">Iniciar Sesión</h2>
+    <form id="loginForm">
+      <div class="mb-3 form-floating">
+        <input type="text" class="form-control" id="username" placeholder="Usuario" required>
+        <label for="username">Usuario</label>
+      </div>
+      <div class="mb-3 form-floating">
+        <input type="password" class="form-control" id="password" placeholder="Contraseña" required>
+        <label for="password">Contraseña</label>
+      </div>
+      <div class="mb-3 role-select">
+        <label class="form-label">Soy:</label>
+        <select id="role" class="form-select" required>
+          <option value="" disabled selected>Seleccione rol</option>
+          <option value="doctor">Doctor</option>
+          <option value="paciente">Paciente</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+    </form>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const role = document.getElementById('role').value;
+  
+      localStorage.setItem('usuarioActual', JSON.stringify({ username, role }));
+  
+      // Redireccionar según el rol
+      if (role === 'doctor') {
+        window.location.href = '../Formularios/MenuDoctores.html';
+      } else if (role === 'paciente') {
+        window.location.href = '../Formularios/MenuPacientes.html';
+      } else {
+        alert('Seleccione un rol válido.');
+      }
+    });
+  </script>
+</body>
+</html>

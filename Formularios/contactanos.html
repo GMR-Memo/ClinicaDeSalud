@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Autoevaluación de Adicción - Clínica de Salud</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+
+  <!-- Formulario de Autoevaluación -->
+  <div class="container mt-5">
+    <h1 class="text-center">¿Crees Tener Problemas Con Alguna Sustancia?</h1>
+    <p class="text-center">Si crees que tú o algún miembro de tu familia padece un problema de adicción, nosotros podemos ayudarte. A continuación, te presentamos un breve cuestionario que te permitirá autoevaluarte.</p>
+    
+    <form id="diagnosticoForm">
+      <div class="question">
+        <p>¿Pierdes tiempo en tu trabajo debido al consumo de sustancias?</p>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="q1" value="yes" id="q1_yes">
+          <label class="form-check-label" for="q1_yes">Sí</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="q1" value="no" id="q1_no" checked>
+          <label class="form-check-label" for="q1_no">No</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>¿El consumo de sustancias está produciendo infelicidad en tu vida familiar?</p>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="q2" value="yes" id="q2_yes">
+          <label class="form-check-label" for="q2_yes">Sí</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="q2" value="no" id="q2_no" checked>
+          <label class="form-check-label" for="q2_no">No</label>
+        </div>
+      </div>
+
+      <div class="buttons text-center mt-4">
+        <button type="button" class="btn btn-secondary" onclick="history.back()">Regresar</button>
+        <button type="button" class="btn btn-primary" onclick="calcularResultado()">Ver Resultado</button>
+      </div>
+    </form>
+
+    <div id="resultado" class="mt-4 text-center"></div>
+  </div>
+
+  <footer class="bg-dark text-white text-center py-3 mt-5">
+    <div class="container">
+      <p>&copy; 2025 Clínica de Salud Mental. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

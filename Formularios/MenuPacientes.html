@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panel del Paciente</title>
+  <link rel="stylesheet" href="css/MenuPacientes.css"/>
+</head>
+<body>
+  <div class="dashboard">
+    <aside class="sidebar">
+      <div class="brand">Espacio Mental</div>
+      <nav class="nav">
+        <!-- Perfil -->
+        <div class="nav-section">Mi Perfil</div>
+        <a href="PerfilPaciente.html" class="nav-item">Información Personal</a>
+        <a href="BitacoraEmocional.html" class="nav-item">Bitácora Emocional</a>
+
+        <!-- Terapia -->
+        <div class="nav-section">Terapia</div>
+        <a href="MisCitas.html" class="nav-item">Ver Sesiones</a>
+        <a href="AgendarTerapia.html" class="nav-item">Agendar Sesión</a>
+        <a href="NotasTerapeuta.html" class="nav-item">Notas del Terapeuta</a>
+
+        <!-- Recursos -->
+        <div class="nav-section">Recursos</div>
+        <a href="EjerciciosRespiracion.html" class="nav-item">Ejercicios de Respiración</a>
+        <a href="Meditaciones.html" class="nav-item">Meditaciones Guiadas</a>
+
+        <!-- Otros -->
+        <div class="nav-section">Más</div>
+        <a href="Mensajes.html" class="nav-item">Mensajes</a>
+        <a href="Configuracion.html" class="nav-item">Configuración</a>
+      </nav>
+    </aside>
+    <main class="content">
+      <h1>Hola, {{nombrePaciente}}</h1>
+      <p>Este es tu espacio personal para gestionar tu bienestar mental.</p>
+    </main>
+  </div>
+</body>
+</html>
