@@ -4,19 +4,14 @@
  */
 class Conexion {
     private static $servidor  = 'localhost';
-    private static $puerto    = '5432';
-    private static $bd        = 'clinica_salud';
-    private static $usuario   = 'tu_usuario';
-    private static $password  = 'tu_password';
+    private static $puerto    = '5433';
+    private static $bd        = 'ClinicaSalud';
+    private static $usuario   = 'postgres';
+    private static $password  = 'root1234';
     private static $conexion  = null;
 
-    // Evita instancias directas
     private function __construct() {}
 
-    /**
-     * Abre (o devuelve) la conexión a la base de datos
-     * @return PDO
-     */
     public static function conectar() {
         if (self::$conexion === null) {
             try {
@@ -32,9 +27,6 @@ class Conexion {
         return self::$conexion;
     }
 
-    /**
-     * Cierra la conexión (método opcional)
-     */
     public static function desconectar() {
         self::$conexion = null;
     }

@@ -3,10 +3,7 @@
 session_start();
 
 // Si el usuario ya está autenticado, redirigir al home
-if (isset($_SESSION['usuario_id'])) {
-    header('Location: home.php');
-    exit;
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="es">

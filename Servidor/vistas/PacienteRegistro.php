@@ -3,12 +3,10 @@
 session_start();
 
 require_once __DIR__ . '/../datos/DAOpacientes.php';
-require_once __DIR__ . '/../modelos/paciente.php';
+require_once __DIR__ . '/../modelos/Paciente.php';
+use Modelos\Paciente;
 
-if (isset($_SESSION['usuario'])) {
-    header('Location: menuPacientes.php');
-    exit;
-}
+
 
 $error   = '';
 $valores = [
@@ -25,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     foreach ($valores as $campo => &$valor) {
         $valor = trim($_POST[$campo] ?? '');
     }
-    unset($valor);
+    unset($valor); 
 
     if (strlen($valores['nombre']) < 2) {
         $error = 'El nombre debe tener al menos 2 caracteres.';

@@ -1,23 +1,21 @@
 <?php
-// modelos/Doctor.php
-
 namespace Modelos;
 
 /**
  * Representa un doctor de la clínica
  */
 class Doctor {
-    public int    $id           = 0;
-    public string $nombre       = "";
-    public string $correo       = "";
-    public string $contrasena   = "";
-    public string $cedula       = "";
+    public int $id = 0;
+    public string $nombre = "";
+    public string $correo = "";
+    public string $contrasena = "";
+    public string $cedula = "";
     public string $especialidad = "";
-    public string $telefono     = "";
-    public string $direccion    = "";
+    public string $telefono = "";
+    public string $direccion = "";
 
     public function __construct(
-        int    $id,
+        int $id,
         string $nombre,
         string $correo,
         string $contrasena,
@@ -26,13 +24,13 @@ class Doctor {
         string $telefono,
         string $direccion
     ) {
-        $this->id           = $id;
-        $this->nombre       = $nombre;
-        $this->correo       = $correo;
-        $this->contrasena   = $contrasena;
-        $this->cedula       = $cedula;
+        $this->id = $id;
+        $this->nombre = $nombre;
+        $this->correo = $correo;
+        $this->contrasena = $contrasena;
+        $this->cedula = $cedula;
         $this->especialidad = $especialidad;
-        $this->telefono     = $telefono;
-        $this->direccion    = $direccion;
+        $this->telefono = $telefono;
+        $this->direccion = $direccion;
     }
 }
