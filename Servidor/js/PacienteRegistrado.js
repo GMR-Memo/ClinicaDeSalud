@@ -1,65 +1,61 @@
+const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("formularioRegistroPaciente");
+  const form = document.querySelector("form");
+  const nombre = document.getElementById("nombre");
+  const correo = document.getElementById("correo");
+  const genero = document.getElementById("genero");
+  const contrasena = document.getElementById("contrasena");
+  const telefono = document.getElementById("telefono");
+  const direccion = document.getElementById("direccion");
+  const edad = document.getElementById("edad");
 
-  form.addEventListener("submit", (event) => {
-    event.preventDefault(); // Evita el envío del formulario
+  // Contenedor para mostrar errores visuales
+  const errorContainer = document.createElement("div");
+  errorContainer.classList.add("alert", "alert-danger");
+  errorContainer.style.display = "none";
+  form.parentNode.insertBefore(errorContainer, form);
 
-    // Obtener los valores de los campos
-    const nombre = document.getElementById("txtNombre").value.trim();
-    const edad = parseInt(document.getElementById("txtEdad").value);
-    const genero = document.getElementById("txtGenero")?.value || "";
-    const correo = document.getElementById("txtEmail").value.trim();
-    const contrasena = document.getElementById("txtPassword").value;
-    const telefono = document.getElementById("txtTelefono").value.trim();
-    const direccion = document.getElementById("txtDireccion").value.trim();
+  form.addEventListener("submit", (e) => {
+    let errores = [];
 
-    // Validación básica
-    if (!nombre || isNaN(edad) || edad < 0 || !genero || !correo || !contrasena || !telefono || !direccion) {
-      alert("Por favor, completa todos los campos correctamente.");
-      return;
+    if (nombre.value.trim().length < 2) {
+      errores.push("El nombre debe tener al menos 2 caracteres.");
     }
 
-    // Validación del correo
-    const correoRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!correoRegex.test(correo)) {
-      alert("Por favor, ingresa un correo electrónico válido.");
-      return;
+    if (!regexCorreo.test(correo.value.trim())) {
+      errores.push("El correo no tiene un formato válido.");
     }
 
-    // Validación del teléfono
-    const telRegex = /^[0-9]{10}$/;
-    if (!telRegex.test(telefono)) {
-      alert("Ingresa un número de teléfono válido (10 dígitos).");
-      return;
+    if (!genero.value) {
+      errores.push("Debe seleccionar un género.");
     }
 
-
-    // Crear objeto paciente
-    const paciente = {
-      nombre,
-      edad,
-      genero,
-      correo,
-      contrasena,
-      telefono,
-      direccion
-    };
-
-
-    const pacientes = JSON.parse(localStorage.getItem("pacientes")) || [];
-
-    // Verificar si el correo ya está registrado
-    const correoExistente = pacientes.some(p => p.correo === correo);
-    if (correoExistente) {
-      alert("Este correo electrónico ya está registrado.");
-      return;
+    // Validar solo si existe el campo contraseña (modo creación)
+    if (contrasena && contrasena.required && contrasena.value.length < 6) {
+      errores.push("La contraseña debe tener al menos 6 caracteres.");
     }
 
-    // Guardar nuevo paciente
-    pacientes.push(paciente);
-    localStorage.setItem("pacientes", JSON.stringify(pacientes));
+    if (!/^\d{10}$/.test(telefono.value)) {
+      errores.push("El teléfono debe tener 10 dígitos numéricos.");
+    }
 
-    // Redirigir a una página de éxito
-    window.location.href = "registroExitoso.html";
+    if (direccion.value.trim() === "") {
+      errores.push("La dirección no puede estar vacía.");
+    }
+
+    const edadVal = parseInt(edad.value);
+    if (isNaN(edadVal) || edadVal < 0 || edadVal > 120) {
+      errores.push("La edad debe ser un número entre 0 y 120.");
+    }
+
+    if (errores.length > 0) {
+      e.preventDefault();
+      errorContainer.innerHTML = errores.map(err => `<div>${err}</div>`).join('');
+      errorContainer.style.display = "block";
+      window.scrollTo(0, 0);
+    } else {
+      errorContainer.style.display = "none";
+    }
   });
 });

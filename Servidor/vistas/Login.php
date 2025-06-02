@@ -14,7 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $correo     = trim($_POST['correo'] ?? '');
     $contrasena = $_POST['contrasena'] ?? '';
 
-    // Validaciones
     if (!in_array($rol, ['paciente', 'doctor'])) {
         $error = 'Seleccione un tipo de usuario válido.';
     } elseif (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
@@ -24,12 +23,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $daoUser = new DAOUsuario();
         $usuarioAuth = $daoUser->autenticar($correo, $contrasena, $rol);
-        
+
         if ($usuarioAuth) {
             if ($rol === 'paciente') {
                 $daoPac = new PacienteDAO();
                 $usuario = $daoPac->obtenerPorId($usuarioAuth->id);
-          
                 $_SESSION['usuario_id'] = $usuario->id;
                 $_SESSION['usuario_rol'] = 'paciente';
                 $_SESSION['usuario_nombre'] = $usuario->nombre;
@@ -37,7 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } else {
                 $daoDoc = new DoctorDAO();
                 $usuario = $daoDoc->obtenerPorId($usuarioAuth->id);
-              
                 $_SESSION['usuario_id'] = $usuario->id;
                 $_SESSION['usuario_rol'] = 'doctor';
                 $_SESSION['usuario_nombre'] = $usuario->nombre;
@@ -56,13 +53,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Iniciar Sesión - Clínica Salud+</title>
+  <title>Iniciar Sesión - Clínica Salud</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="../Formularios/css/estilologins.css" rel="stylesheet">
 </head>
 <body>
 <div class="container d-flex justify-content-center align-items-center vh-100">
-  <div class="card formulario-login">
+  <div class="card formulario-login w-100" style="max-width: 500px;">
     <div class="card-header bg-primary text-white text-center py-3">
       <h3>Iniciar Sesión</h3>
     </div>
@@ -71,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="alert alert-danger text-center"><?php echo htmlspecialchars($error); ?></div>
       <?php endif; ?>
 
-      <form method="post" class="d-grid gap-3">
+      <form method="post" id="formLogin" class="d-grid gap-3" novalidate>
         <div class="text-center mb-3">
           <label class="form-label fw-semibold">Tipo de usuario:</label>
           <div class="btn-group d-flex justify-content-center" role="group">
@@ -87,15 +83,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div class="form-group">
           <label for="correo">Correo electrónico</label>
-          <input type="email" class="form-control" id="correo" name="correo"
-                 required placeholder="ejemplo@correo.com"
+          <input type="email" class="form-control" id="correo" name="correo" required placeholder="ejemplo@correo.com"
                  value="<?php echo htmlspecialchars($_POST['correo'] ?? ''); ?>">
         </div>
 
         <div class="form-group">
           <label for="contrasena">Contraseña</label>
-          <input type="password" class="form-control" id="contrasena" name="contrasena"
-                 required placeholder="Ingresa tu contraseña">
+          <div class="input-group">
+            <input type="password" class="form-control" id="contrasena" name="contrasena" required placeholder="Ingresa tu contraseña">
+            <button type="button" class="input-group-text" id="btnMostrarOcultar">Ver</button>
+          </div>
         </div>
 
         <button type="submit" class="btn btn-primary btn-lg mt-3">Iniciar Sesión</button>
@@ -105,10 +102,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ¿No tienes una cuenta?
         <a href="crearCuenta.php">Crear una cuenta</a>
       </p>
+      <div class="text-center mt-3">
+        <a href="Inicio.php" class="btn btn-secondary">← Regresar</a>
+      </div>
     </div>
   </div>
 </div>
 
+<script src="js/login.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

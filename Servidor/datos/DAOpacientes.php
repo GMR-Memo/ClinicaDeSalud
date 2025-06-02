@@ -49,7 +49,7 @@ class PacienteDAO {
                 (int)$fila['id'],
                 $fila['nombre'],
                 $fila['correo'],
-                '',
+                $fila['genero'],
                 $fila['genero'],
                 $fila['telefono'],
                 $fila['direccion'],
@@ -112,4 +112,5 @@ class PacienteDAO {
         $stmt = $this->con->prepare($sql);
         return $stmt->execute([':id' => $id]);
     }
+    
 }

@@ -41,6 +41,9 @@ session_start();
           ¿Ya tienes una cuenta?
           <a href="login.php">Inicia sesión</a>
         </p>
+          <div class="text-center mt-3">
+  <a href="Inicio.php" class="btn btn-secondary">← Regresar</a>
+</div>
       </div>
     </div>
   </div>

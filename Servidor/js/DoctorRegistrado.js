@@ -1,63 +1,58 @@
-console.log("JS cargado correctamente");
-
-const regCorreo = /^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$/;
-const regTelefono = /^[0-9]{10}$/;
+const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("formularioRegistroDoctor");
+  const form = document.getElementById("formDoctor");
+  const errorContainer = document.createElement("div");
+  errorContainer.classList.add("alert", "alert-danger");
+  errorContainer.style.display = "none";
+  form.parentNode.insertBefore(errorContainer, form);
 
-  document.getElementById("txtNombre").onkeyup = e => revisarTexto(e, 3, 50);
-  document.getElementById("txtPassword").onkeyup = e => revisarTexto(e, 6, 20);
-  document.getElementById("txtCedula").onkeyup = e => revisarTexto(e, 5, 20);
-  document.getElementById("txtEspecialidad").onkeyup = e => revisarTexto(e, 3, 30);
-  document.getElementById("txtDireccion").onkeyup = e => revisarTexto(e, 5, 100);
+  const nombre = document.getElementById("nombre");
+  const correo = document.getElementById("correo");
+  const contrasena = document.getElementById("contrasena");
+  const cedula = document.getElementById("cedula");
+  const especialidad = document.getElementById("especialidad");
+  const telefono = document.getElementById("telefono");
+  const direccion = document.getElementById("direccion");
 
-  document.getElementById("txtEmail").onkeyup = e => {
-    const campo = e.target;
-    if (campo.value.trim().match(regCorreo)) {
-      campo.setCustomValidity("");
-      marcarValido(campo);
-    } else {
-      campo.setCustomValidity("Correo no válido");
-      marcarNoValido(campo);
+  form.addEventListener("submit", (e) => {
+    let errores = [];
+
+    if (nombre.value.trim().length < 2) {
+      errores.push("El nombre debe tener al menos 2 caracteres.");
     }
-  };
 
-  document.getElementById("txtTelefono").onkeyup = e => {
-    const campo = e.target;
-    if (campo.value.trim().match(regTelefono)) {
-      campo.setCustomValidity("");
-      marcarValido(campo);
-    } else {
-      campo.setCustomValidity("Teléfono no válido");
-      marcarNoValido(campo);
+    if (!regexCorreo.test(correo.value.trim())) {
+      errores.push("Correo no válido.");
     }
-  };
 
-  form.addEventListener("submit", e => {
-    if (!form.checkValidity()) {
+    if (contrasena && contrasena.required && contrasena.value.length < 6) {
+      errores.push("La contraseña debe tener al menos 6 caracteres.");
+    }
+
+    if (cedula.value.trim() === "") {
+      errores.push("La cédula es obligatoria.");
+    }
+
+    if (especialidad.value.trim() === "") {
+      errores.push("La especialidad es obligatoria.");
+    }
+
+    if (!/^\d{10}$/.test(telefono.value.trim())) {
+      errores.push("El teléfono debe tener 10 dígitos numéricos.");
+    }
+
+    if (direccion.value.trim() === "") {
+      errores.push("La dirección no puede estar vacía.");
+    }
+
+    if (errores.length > 0) {
       e.preventDefault();
+      errorContainer.innerHTML = errores.map(err => `<div>${err}</div>`).join('');
+      errorContainer.style.display = "block";
+      window.scrollTo(0, 0);
+    } else {
+      errorContainer.style.display = "none";
     }
   });
 });
-
-function revisarTexto(e, min, max) {
-  const campo = e.target;
-  campo.setCustomValidity("");
-  if (campo.value.trim().length < min || campo.value.trim().length > max) {
-    campo.setCustomValidity("Campo no válido");
-    marcarNoValido(campo);
-  } else {
-    marcarValido(campo);
-  }
-}
-
-function marcarValido(campo) {
-  campo.classList.remove("novalido");
-  campo.classList.add("valido");
-}
-
-function marcarNoValido(campo) {
-  campo.classList.remove("valido");
-  campo.classList.add("novalido");
-}

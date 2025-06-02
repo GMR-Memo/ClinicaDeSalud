@@ -1,32 +1,60 @@
-document.getElementById("formLogin").addEventListener("submit", function (e) {
-  e.preventDefault();
+const regexMail = /^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$/;
 
-  const correo = document.getElementById("correo").value.trim();
-  const contrasena = document.getElementById("contrasena").value;
-  const tipoUsuario = document.querySelector('input[name="tipoUsuario"]:checked').value;
-  const mensajeError = document.getElementById("mensajeError");
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("formLogin");
+  const correo = document.getElementById("correo");
+  const contrasena = document.getElementById("contrasena");
 
-  // Simulación de usuarios válidos
-  const usuariosValidos = {
-    paciente: {
-      correo: "lalo_1@gmail.com",
-      contrasena: "123456",
-      redireccion: "MenuPacientes.html"
-    },
-    doctor: {
-      correo: "doctor@salud.com",
-      contrasena: "123456",
-      redireccion: "MenuDoctores.html"
+  document.getElementById("btnMostrarOcultar").addEventListener("click", e => {
+    if (contrasena.type === "password") {
+      contrasena.type = "text";
+      e.target.innerText = "Ocultar";
+    } else {
+      contrasena.type = "password";
+      e.target.innerText = "Ver";
     }
-  };
+  });
 
-  const usuario = usuariosValidos[tipoUsuario];
+  correo.addEventListener("input", () => validarCorreo());
+  contrasena.addEventListener("input", () => validarLongitud(contrasena, 6, 50));
 
-  if (correo === usuario.correo && contrasena === usuario.contrasena) {
-    // Redirigir al menú correspondiente
-    window.location.href = usuario.redireccion;
-  } else {
-    // Mostrar mensaje de error
-    mensajeError.textContent = "Correo o contraseña incorrectos.";
+  form.addEventListener("submit", e => {
+    let valido = true;
+    const tipoUsuario = document.querySelector('input[name="tipoUsuario"]:checked');
+    if (!tipoUsuario) {
+      alert("Debes seleccionar el tipo de usuario.");
+      valido = false;
+    }
+
+    if (!validarCorreo()) valido = false;
+    if (!validarLongitud(contrasena, 6, 50)) valido = false;
+
+    if (!valido) e.preventDefault();
+  });
+
+  function validarCorreo() {
+    correo.classList.remove("valido", "novalido");
+    if (!correo.value.trim().match(regexMail)) {
+      correo.classList.add("novalido");
+      correo.setCustomValidity("Correo no válido");
+      return false;
+    } else {
+      correo.classList.add("valido");
+      correo.setCustomValidity("");
+      return true;
+    }
+  }
+
+  function validarLongitud(input, min, max) {
+    input.classList.remove("valido", "novalido");
+    if (input.value.trim().length < min || input.value.trim().length > max) {
+      input.classList.add("novalido");
+      input.setCustomValidity("Longitud inválida");
+      return false;
+    } else {
+      input.classList.add("valido");
+      input.setCustomValidity("");
+      return true;
+    }
   }
 });

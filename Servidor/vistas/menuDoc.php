@@ -31,7 +31,7 @@ session_start();
         <a href="../vistas/ListaDoctores.php" class="nav-item"><i class="fas fa-user-md me-2"></i>Lista de Doctores</a>
         <div class="nav-section">Perfil</div>
         <a href="perfilDoctor.php" class="nav-item"><i class="fas fa-id-badge me-2"></i>Mi Perfil</a>
-        <a href="logout.php" class="nav-item"><i class="fas fa-sign-out-alt me-2"></i>Cerrar Sesión</a>
+        <a href="cerrarsesion.php" class="nav-item"><i class="fas fa-sign-out-alt me-2"></i>Cerrar Sesión</a>
       </nav>
     </aside>
     <main class="content flex-fill p-4">
