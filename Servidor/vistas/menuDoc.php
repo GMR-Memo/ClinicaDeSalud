@@ -28,9 +28,7 @@ session_start();
         <a href="PacienteRegistro.php" class="nav-item"><i class="fas fa-user-plus me-2"></i>Agregar Paciente</a>
         <a href="ListaPacientes.php" class="nav-item"><i class="fas fa-users me-2"></i>Ver/Editar Pacientes</a>
         <div class="nav-section">Doctores</div>
-        <a href="../vistas/ListaDoctores.php" class="nav-item"><i class="fas fa-user-md me-2"></i>Lista de Doctores</a>
-        <div class="nav-section">Perfil</div>
-        <a href="perfilDoctor.php" class="nav-item"><i class="fas fa-id-badge me-2"></i>Mi Perfil</a>
+       
         <a href="cerrarsesion.php" class="nav-item"><i class="fas fa-sign-out-alt me-2"></i>Cerrar Sesión</a>
       </nav>
     </aside>

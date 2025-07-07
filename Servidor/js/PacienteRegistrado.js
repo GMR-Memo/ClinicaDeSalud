@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const direccion = document.getElementById("direccion");
   const edad = document.getElementById("edad");
 
-  // Contenedor para mostrar errores visuales
+  
   const errorContainer = document.createElement("div");
   errorContainer.classList.add("alert", "alert-danger");
   errorContainer.style.display = "none";

@@ -30,7 +30,7 @@ class CitaDAO
     }
     public function obtenerTodos(): array
     {
-        $sql = "SELECT c.id, c.paciente_id, c.doctor_id, c.fecha, c.motivo,
+        $sql = "SELECT c.id, c.paciente_id, c.doctor_id, c.fecha, c.motivo, c.completada,
                    p.nombre AS paciente_nombre, d.nombre AS doctor_nombre
             FROM citas c
             JOIN pacientes p ON c.paciente_id = p.id
@@ -44,7 +44,8 @@ class CitaDAO
                 (int)$fila['paciente_id'],
                 (int)$fila['doctor_id'],
                 $fila['fecha'],
-                $fila['motivo']
+                $fila['motivo'],
+                $fila['completada'] 
             );
             $cita->paciente_nombre = $fila['paciente_nombre'];
             $cita->doctor_nombre = $fila['doctor_nombre'];
@@ -55,7 +56,7 @@ class CitaDAO
 
     public function obtenerPorId(int $id): ?Cita
     {
-        $sql = "SELECT id, paciente_id, doctor_id, fecha, motivo
+        $sql = "SELECT id, paciente_id, doctor_id, fecha, motivo, completada
                 FROM citas
                 WHERE id = :id";
         $stmt = $this->con->prepare($sql);
@@ -68,9 +69,30 @@ class CitaDAO
             (int)$fila['paciente_id'],
             (int)$fila['doctor_id'],
             $fila['fecha'],
-            $fila['motivo']
+            $fila['motivo'],
+            $fila['completada']
         );
     }
+   public function marcarAsistencia(int $id, $completada): bool
+{
+    $sql = "UPDATE citas SET completada = :completada WHERE id = :id";
+    $stmt = $this->con->prepare($sql);
+    
+    // Convierte explícitamente el valor a booleano
+    $completada = filter_var($completada, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+
+    // Si no es booleano válido, aborta
+    if (!is_bool($completada)) {
+        throw new InvalidArgumentException("Valor de 'completada' inválido");
+    }
+
+    $stmt->bindValue(':completada', $completada, PDO::PARAM_BOOL);
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+    return $stmt->execute();
+}
+
+
 
     public function actualizar(Cita $cita): bool
     {
@@ -128,7 +150,8 @@ class CitaDAO
                 (int)$fila['paciente_id'],
                 (int)$fila['doctor_id'],
                 $fila['fecha'],
-                $fila['motivo']
+                $fila['motivo'],
+                isset($fila['completada']) ? (bool)$fila['completada'] : false
             );
             $cita->paciente_nombre = $fila['paciente_nombre'];
             $cita->doctor_nombre = $fila['doctor_nombre'];

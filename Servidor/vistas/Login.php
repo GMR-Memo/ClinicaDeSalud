@@ -4,8 +4,10 @@ session_start();
 require_once __DIR__ . '/../datos/DAOUsuario.php';
 require_once __DIR__ . '/../datos/DAOdoctores.php';
 require_once __DIR__ . '/../datos/DAOpacientes.php';
+require_once __DIR__ . '/../datos/DAOadministrador.php'; // NUEVO
 require_once __DIR__ . '/../modelos/Doctor.php';
 require_once __DIR__ . '/../modelos/Paciente.php';
+require_once __DIR__ . '/../modelos/Administrador.php'; // NUEVO
 
 $error = '';
 
@@ -14,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $correo     = trim($_POST['correo'] ?? '');
     $contrasena = $_POST['contrasena'] ?? '';
 
-    if (!in_array($rol, ['paciente', 'doctor'])) {
+    if (!in_array($rol, ['paciente', 'doctor', 'administrador'])) {
         $error = 'Seleccione un tipo de usuario válido.';
     } elseif (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
         $error = 'Ingrese un correo válido.';
@@ -32,13 +34,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['usuario_rol'] = 'paciente';
                 $_SESSION['usuario_nombre'] = $usuario->nombre;
                 header('Location: menuPacientes.php');
-            } else {
+            } elseif ($rol === 'doctor') {
                 $daoDoc = new DoctorDAO();
                 $usuario = $daoDoc->obtenerPorId($usuarioAuth->id);
                 $_SESSION['usuario_id'] = $usuario->id;
                 $_SESSION['usuario_rol'] = 'doctor';
                 $_SESSION['usuario_nombre'] = $usuario->nombre;
                 header('Location: menuDoc.php');
+            } elseif ($rol === 'administrador') {
+                $daoAdmin = new AdministradorDAO();
+                $usuario = $daoAdmin->obtenerPorId($usuarioAuth->id);
+                $_SESSION['usuario_id'] = $usuario->id;
+                $_SESSION['usuario_rol'] = 'administrador';
+                $_SESSION['usuario_nombre'] = $usuario->nombre;
+                header('Location: menuAdmin.php');
             }
             exit;
         } else {
@@ -47,6 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -68,35 +78,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <?php endif; ?>
 
       <form method="post" id="formLogin" class="d-grid gap-3" novalidate>
-        <div class="text-center mb-3">
-          <label class="form-label fw-semibold">Tipo de usuario:</label>
-          <div class="btn-group d-flex justify-content-center" role="group">
-            <input type="radio" class="btn-check" name="tipoUsuario" id="paciente" value="paciente"
-                   <?php if (!isset($_POST['tipoUsuario']) || $_POST['tipoUsuario'] === 'paciente') echo 'checked'; ?>>
-            <label class="btn btn-outline-primary" for="paciente">Paciente</label>
+  <div class="text-center mb-3">
+    <label class="form-label fw-semibold">Tipo de usuario:</label>
+    <div class="btn-group d-flex justify-content-center" role="group">
+      <input type="radio" class="btn-check" name="tipoUsuario" id="paciente" value="paciente"
+             <?php if (!isset($_POST['tipoUsuario']) || $_POST['tipoUsuario'] === 'paciente') echo 'checked'; ?>>
+      <label class="btn btn-outline-primary" for="paciente">Paciente</label>
 
-            <input type="radio" class="btn-check" name="tipoUsuario" id="doctor" value="doctor"
-                   <?php if (isset($_POST['tipoUsuario']) && $_POST['tipoUsuario'] === 'doctor') echo 'checked'; ?>>
-            <label class="btn btn-outline-success" for="doctor">Doctor</label>
-          </div>
-        </div>
+      <input type="radio" class="btn-check" name="tipoUsuario" id="doctor" value="doctor"
+             <?php if (isset($_POST['tipoUsuario']) && $_POST['tipoUsuario'] === 'doctor') echo 'checked'; ?>>
+      <label class="btn btn-outline-success" for="doctor">Doctor</label>
 
-        <div class="form-group">
-          <label for="correo">Correo electrónico</label>
-          <input type="email" class="form-control" id="correo" name="correo" required placeholder="ejemplo@correo.com"
-                 value="<?php echo htmlspecialchars($_POST['correo'] ?? ''); ?>">
-        </div>
+      <input type="radio" class="btn-check" name="tipoUsuario" id="administrador" value="administrador"
+             <?php if (isset($_POST['tipoUsuario']) && $_POST['tipoUsuario'] === 'admin') echo 'checked'; ?>>
+      <label class="btn btn-outline-warning" for="administrador">Admin</label>
+    </div>
+  </div>
 
-        <div class="form-group">
-          <label for="contrasena">Contraseña</label>
-          <div class="input-group">
-            <input type="password" class="form-control" id="contrasena" name="contrasena" required placeholder="Ingresa tu contraseña">
-            <button type="button" class="input-group-text" id="btnMostrarOcultar">Ver</button>
-          </div>
-        </div>
+  <div class="form-group">
+    <label for="correo">Correo electrónico</label>
+    <input type="email" class="form-control" id="correo" name="correo" required placeholder="ejemplo@correo.com"
+           value="<?php echo htmlspecialchars($_POST['correo'] ?? ''); ?>">
+  </div>
 
-        <button type="submit" class="btn btn-primary btn-lg mt-3">Iniciar Sesión</button>
-      </form>
+  <div class="form-group">
+    <label for="contrasena">Contraseña</label>
+    <div class="input-group">
+      <input type="password" class="form-control" id="contrasena" name="contrasena" required placeholder="Ingresa tu contraseña">
+      <button type="button" class="input-group-text" id="btnMostrarOcultar">Ver</button>
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary btn-lg mt-3">Iniciar Sesión</button>
+</form>
+
 
       <p class="text-center mt-4 text-muted">
         ¿No tienes una cuenta?

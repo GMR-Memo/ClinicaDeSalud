@@ -2,7 +2,6 @@
 // vistas/CrearCuenta.php
 session_start();
 
-// Si el usuario ya está autenticado, redirigir al home
 
 ?>
 <!DOCTYPE html>

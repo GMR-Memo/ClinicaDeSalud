@@ -24,12 +24,6 @@ session_start();
         <div class="nav-section">Citas</div>
         <a href="MisCitas.php" class="nav-item"><i class="fas fa-calendar-alt me-2"></i>Mis Citas</a>
 
-        <div class="nav-section">Historial</div>
-
-        <a href="" class="nav-item"><i class="fas fa-notes-medical me-2"></i>Historial Médico</a>
-        <div class="nav-section">Perfil</div>
-
-        <a href="" class="nav-item"><i class="fas fa-user me-2"></i>Mi Perfil</a>
 
         <a href="cerrarsesion.php" class="nav-item"><i class="fas fa-sign-out-alt me-2"></i>Cerrar Sesión</a>
       </nav>

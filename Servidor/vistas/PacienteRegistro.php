@@ -4,7 +4,7 @@ session_start();
 require_once __DIR__ . '/../datos/DAOpacientes.php';
 require_once __DIR__ . '/../modelos/Paciente.php';
 use Modelos\Paciente;
-
+ 
 $dao     = new PacienteDAO();
 $errores = [];
 $exito   = '';

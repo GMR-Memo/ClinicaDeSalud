@@ -21,7 +21,7 @@ if (isset($_SESSION['msg'])) {
 
   <div class="mb-3 d-flex justify-content-between">
     <a href="PacienteRegistro.php" class="btn btn-success">Registrar Nuevo Paciente</a>
-    <a href="menuDoc.php" class="btn btn-secondary">Regresar</a>
+    <a href="menuAdmin.php" class="btn btn-secondary">Regresar</a>
   </div>
 
   <table class="table table-bordered table-hover">
