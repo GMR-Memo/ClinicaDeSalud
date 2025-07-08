@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <a href="crearCuenta.php">Crear una cuenta</a>
       </p>
       <div class="text-center mt-3">
-        <a href="Inicio.php" class="btn btn-secondary">← Regresar</a>
+        <a href="../../index.php" class="btn btn-secondary">← Regresar</a>
       </div>
     </div>
   </div>

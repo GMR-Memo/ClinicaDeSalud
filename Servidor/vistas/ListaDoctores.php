@@ -6,7 +6,7 @@ use Modelos\Doctor;
 $dao = new DoctorDAO();
 $doctores = $dao->obtenerTodos();
 
-include __DIR__ . '/header.php';
+include __DIR__ . '/headerlistas.php';
 if (isset($_SESSION['msg'])) {
     [$tipo, $texto] = explode('--', $_SESSION['msg'], 2);
     echo "<div class='alert $tipo'>$texto</div>";
@@ -16,6 +16,9 @@ if (isset($_SESSION['msg'])) {
 <main class="container py-4">
   <h2>Lista de Doctores</h2>
   <a href="DoctorRegistro.php" class="btn btn-success mb-3">Registrar Nuevo</a>
+  <br>
+    <a href="menuAdmin.php" class="btn btn-secondary">Regresar</a>
+
   <table class="table table-bordered table-hover">
     <thead class="table-light">
       <tr>

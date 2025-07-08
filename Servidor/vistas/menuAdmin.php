@@ -24,12 +24,9 @@ if (!isset($_SESSION['usuario_id']) || $_SESSION['usuario_rol'] !== 'admin') {
         <div class="nav-section">Gestión</div>
         <a href="ListaDoctores.php" class="nav-item"><i class="fas fa-user-md me-2"></i>Doctores</a>
         <a href="ListapacientesAdmin.php" class="nav-item"><i class="fas fa-users me-2"></i>Pacientes</a>
-        <a href="ListaCitas.php" class="nav-item"><i class="fas fa-calendar-check me-2"></i>Citas</a>
+        <a href="ListaCitasAdmin.php" class="nav-item"><i class="fas fa-calendar-check me-2"></i>Citas</a>
  <a href="DoctorRegistro.php" class="nav-item"><i class="fas fa-calendar-check me-2"></i>Doctor</a>
-        <div class="nav-section">Sistema</div>
-        <a href="reportes.php" class="nav-item"><i class="fas fa-file-alt me-2"></i>Reportes</a>
-        <a href="configuracion.php" class="nav-item"><i class="fas fa-cogs me-2"></i>Configuración</a>
-
+      
         <a href="cerrarsesion.php" class="nav-item mt-4"><i class="fas fa-sign-out-alt me-2"></i>Cerrar Sesión</a>
       </nav>
     </aside>

@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-include __DIR__ . '/header.php';
+include __DIR__ . '/headerlistas.php';
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -174,6 +174,8 @@ include __DIR__ . '/header.php';
 
             <div class="d-grid">
               <button type="submit" class="btn btn-success btn-lg"><?= $editar ? 'Actualizar' : 'Crear cuenta' ?></button>
+    <a href="menuDoc.php" class="btn btn-secondary">Regresar</a>
+
             </div>
           </form>
         </div>

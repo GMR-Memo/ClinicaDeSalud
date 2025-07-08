@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-include __DIR__ . '/header.php';
+include __DIR__ . '/headerlistas.php';
 ?>
 <main class="container py-4">
   <h2><?= $doctor->id ? 'Editar Doctor' : 'Registrar Doctor'; ?></h2>
@@ -117,6 +117,8 @@ include __DIR__ . '/header.php';
 
     <button type="submit" class="btn btn-primary">Guardar</button>
     <a href="ListaDoctores.php" class="btn btn-secondary">Cancelar</a>
+    <a href="menuAdmin.php" class="btn btn-secondary">Regresar</a>
+
   </form>
 </main>
 

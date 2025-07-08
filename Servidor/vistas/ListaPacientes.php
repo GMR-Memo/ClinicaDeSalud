@@ -7,7 +7,7 @@ use Modelos\Paciente;
 $dao = new PacienteDAO();
 $pacientes = $dao->obtenerTodos();
 
-include __DIR__ . '/header.php';
+include __DIR__ . '/headerlistas.php';
 
 if (isset($_SESSION['msg'])) {
     [$tipo, $texto] = explode('--', $_SESSION['msg'], 2);

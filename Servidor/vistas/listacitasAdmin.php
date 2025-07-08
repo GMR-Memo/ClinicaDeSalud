@@ -57,7 +57,7 @@ if (isset($_SESSION['msg'])) {
         </tr>
       <?php endforeach; ?>
     </tbody>
-    <p class="back-link"><a href="menuDoc.php">← Regresar</a></p>
+    <p class="back-link"><a href="menuAdmin.php">← Regresar</a></p>
 
   </table>
 </main>

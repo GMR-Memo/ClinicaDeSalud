@@ -14,7 +14,7 @@ $rol = $_SESSION['usuario_rol'];
 $dao = new CitaDAO();
 $citas = $dao->obtenerPorUsuario((int)$usuarioId, $rol);
 
-include __DIR__ . '/header.php';
+include __DIR__ . '/headerlistas.php';
 ?>
 
 <main class="container py-4">
